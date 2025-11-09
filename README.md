@@ -12,7 +12,7 @@ Repositorio del **Grupo G5** para la **Evaluación Parcial N°2** de
 Basado en el repositorio oficial: `Fundacion-Instituto-Profesional-Duoc-UC/AUY1102-Pipeline`.
 
 **📄 Informe completo de la evaluación**:
-[Descargar Informe AUY1102-001V-2025-G5](docs/AUY1102-001V-2025-G5.docx)
+[Descargar Informe AUY1102-001V-2025-G5](docs/AUY1102-001V-2025-G5.pdf)
 
 ---
 
