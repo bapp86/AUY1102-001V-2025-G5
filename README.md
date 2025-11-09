@@ -89,13 +89,13 @@ AUY1102-001V-2025-G5/
 ## 🚀 5. Puesta en Marcha
 
 ### 5.1. Requisitos
-```bash
+```
 Node.js >= 20.x
 npm
 Git
 ```
 ### 5.2. Instalación
-```bash
+```
 git clone https://github.com/bapp86/AUY1102-001V-2025-G5.git
 cd AUY1102-001V-2025-G5
 ```
