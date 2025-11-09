@@ -131,7 +131,43 @@ npm run test:watch     # Mantiene Jest en modo watch para desarrollo continuo
 ```
 Estos comandos son la base del pipeline y se integran con los workflows de GitHub Actions.
 
-## 🧪 7. Estrategia de Pruebas
+## 🔐 7. Configuración de conexiones y secrets
+
+Para que los workflows y el pipeline funcionen correctamente, se deben configurar algunos **Secrets** y archivos de configuración. Ninguna credencial debe subirse al repositorio.
+
+### 7.1. GitHub Actions – Secrets recomendados
+
+Configurar en: `Settings → Secrets and variables → Actions → New repository secret`.
+
+| Secret              | Descripción                                                                                | Obligatorio                                 |
+|---------------------|--------------------------------------------------------------------------------------------|---------------------------------------------|
+| `NPM_TOKEN`         | Token para publicar/instalar desde NPM Registry o GitHub Packages (si se usa publicación). | Opcional                                    |
+| `SONAR_TOKEN`       | Token de SonarCloud/SonarQube para análisis de calidad.                                    | Opcional (solo si se activa workflow Sonar) |
+| `SONAR_ORG`         | Organización/proyecto usado por SonarCloud.                                                | Opcional                                    |
+| `SNYK_TOKEN`        | Token para escaneo de vulnerabilidades con Snyk.                                           | Opcional                                    |
+| `GITHUB_TOKEN`      | Usado automáticamente por GitHub Actions (no requiere seteo manual).                       | Sí (automático)                             |
+
+Ajustar los nombres según los que usen tus `.github/workflows/*.yml`.
+
+### 7.2. Configuración local (.npmrc / entorno)
+
+Para desarrollar en local:
+
+1. Si se usa GitHub Packages o un registro privado, crear un archivo `.npmrc` (no subirlo al repo) con algo similar a:
+
+   ```ini
+   //npm.pkg.github.com/:_authToken=${NPM_TOKEN}
+   @tu-scope:registry=https://npm.pkg.github.com
+   ```
+2. Si algún script depende de variables de entorno (por ejemplo para integraciones externas), configurarlas en tu entorno local o en un archivo ```.env``` excluido por ```.gitignore```.
+
+### 7.3. Buenas prácticas
+
+- No subir ```.env```, ```.npmrc``` con tokens ni capturas donde se vean credenciales.
+- Documentar siempre **qué** secret se necesita y **para qué**, nunca su valor.
+- Mantener este apartado actualizado si se agregan nuevos workflows o integraciones.
+
+## 🧪 8. Estrategia de Pruebas
 
 - Implementación de pruebas unitarias con **Jest**, orientadas a validar el comportamiento de componentes clave.
 
@@ -149,7 +185,7 @@ Estos comandos son la base del pipeline y se integran con los workflows de GitHu
 
   - Asegurar comportamiento estable antes de integrar cambios.
 
-## 🧹 8. Linting, Formato y Hooks
+## 🧹 9. Linting, Formato y Hooks
 
 El proyecto adopta un enfoque de **calidad preventiva**:
 
@@ -169,7 +205,7 @@ Facilitan la integración con herramientas como *semantic-release* y la generaci
 
 Este conjunto reduce la deuda técnica y fortalece el trabajo colaborativo.
 
-## 🔁 9. Integración Continua (CI/CD)
+## 🔁 10. Integración Continua (CI/CD)
 
 Los workflows definidos en ``` .github/workflows/ ``` permiten automatizar la validación del proyecto en cada cambio relevante:
 
@@ -203,7 +239,7 @@ Los workflows definidos en ``` .github/workflows/ ``` permiten automatizar la va
 
 Cada Push y Pull Request puede ser sometido a estas validaciones, entregando un pipeline trazable y alineado con prácticas profesionales.
 
-## 🌿 10. Flujo de Trabajo con Git
+## 🌿 11. Flujo de Trabajo con Git
 
 Se recomienda el siguiente flujo, alineado con buenas prácticas:
 
@@ -233,7 +269,7 @@ npm run test:coverage
 
 Este flujo asegura control, trazabilidad y calidad continua del código.
 
-## 📚 11. Evidencias del Trabajo
+## 📚 12. Evidencias del Trabajo
 
 El desarrollo de este repositorio está documentado en el **informe formal de la Evaluación Parcial N°2**, donde se detallan:
 
@@ -249,7 +285,7 @@ El desarrollo de este repositorio está documentado en el **informe formal de la
 
 Este README funciona como versión técnica resumida y profesional de dichas evidencias para docentes, revisores y colaboradores.
 
-## 👥 12. Autores
+## 👥 13. Autores
 
 **Grupo G5 – AUY1102-001V-2025**
 
@@ -259,7 +295,7 @@ Este README funciona como versión técnica resumida y profesional de dichas evi
 
 Proyecto desarrollado para **DUOC UC – Ciclo de Vida del Software I (AUY1102-001V-2025), Sección 001V.**
 
-## 🤝 13. Cómo Contribuir
+## 🤝 14. Cómo Contribuir
 
 **1.** Crear una rama desde ```master``` siguiendo la convención: ```feat/*```, ```fix/*```, ```chore/*```.
 
