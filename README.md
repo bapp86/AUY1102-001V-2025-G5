@@ -11,6 +11,9 @@ Repositorio del **Grupo G5** para la **Evaluación Parcial N°2** de
 
 Basado en el repositorio oficial: `Fundacion-Instituto-Profesional-Duoc-UC/AUY1102-Pipeline`.
 
+**📄 Informe completo de la evaluación**:
+[Descargar Informe AUY1102-001V-2025-G5](docs/Informe_AUY1102-001V-2025-G5.docx)
+
 ---
 
 ## 📌 1. Propósito del Proyecto
@@ -279,3 +282,4 @@ npm run test:coverage
 **5.** Esperar la validación automática de la CI y revisión del equipo.
 
 Cualquier contribución debe mantener el enfoque en **calidad, seguridad, mantenibilidad y coherencia con los objetivos académicos del proyecto.**
+
