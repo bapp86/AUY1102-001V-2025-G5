@@ -1,7 +1,7 @@
 name: Snyk Scan
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ main, master, develop, feat/tests-tdd-bdd ] # <-- Corrección 1: Agregada tu rama
   pull_request:
     branches: [ main, master, develop ]
 jobs:
@@ -16,7 +16,7 @@ jobs:
       - name: Install deps
         run: npm ci
       - name: Run Snyk test
-        uses: snyk/actions/node@master
+        uses: snyk/actions/node@master # <-- Corrección 2: Usar solo la acción
         with:
           args: test --all-projects --severity-threshold=low
         env:
