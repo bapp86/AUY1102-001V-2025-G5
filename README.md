@@ -1,185 +1,281 @@
-# Github NPM Registry
+# AUY1102-001V-2025-G5 · Pipeline de Calidad, Pruebas y Seguridad
 
-## About this article
+![Status](https://img.shields.io/badge/CI-GitHub_Actions-informational?logo=githubactions)
+![Node](https://img.shields.io/badge/Node.js-%E2%89%A520.x-339933?logo=node.js)
+![Tests](https://img.shields.io/badge/Testing-Jest%20|%20NYC-success)
+![Lint](https://img.shields.io/badge/Code%20Style-ESLint%20|%20Prettier-blue)
+![Security](https://img.shields.io/badge/Security-Enabled-critical)
 
-GitHub with GitHubActions and GHAS offer an incredible experience for developers around the planet. Just with a few considerations and good ideas we can build a wonderful experience for our development teams, and they just literally "work only on their code"
+Repositorio del **Grupo G5** para la **Evaluación Parcial N°2** de  
+**Ciclo de Vida del Software I – AUY1102-001V-2025 (Sección 001V, DUOC UC)**
 
-## Using Github NPM Registry - Local Environment
+Basado en el repositorio oficial: `Fundacion-Instituto-Profesional-Duoc-UC/AUY1102-Pipeline`.
 
-### Authenticating to the NPM Registry
+---
 
-1. Setting your [access token](https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries), to enable GitHub functions like an OAuth access token and authenticates the access to the GitHub API.
+## 📌 1. Propósito del Proyecto
 
-    Select the ```read:packages``` scope to download container images and read their metadata.
+Este repositorio consolida la implementación de un **pipeline profesional de Integración Continua (CI)** que integra:
 
-    Select the ```write:packages``` scope to download and upload container images and read and write their metadata.
+- Ejecución automatizada de pruebas unitarias.
+- Medición de cobertura con NYC.
+- Linting y formateo consistente del código.
+- Análisis de calidad y seguridad.
+- Buenas prácticas de versionamiento, ramas y Pull Requests.
+- Publicación y empaquetado alineado con **GitHub Packages / NPM Registry**.
 
-    Select the ```delete:packages``` scope to delete container images.
+El objetivo es demostrar competencias del **RA3** de la asignatura, simulando un entorno real de DevSecOps académico-profesional.
 
-2. To authenticate by adding your personal access token to your ~/.npmrc file, edit the ~/.npmrc file for your project to include the following line, replacing TOKEN with your personal access token. Create a new ~/.npmrc file if one doesn't exist.
+---
 
-    ```
-    //npm.pkg.github.com/:_authToken=TOKEN
-    ```
-3. To authenticate by logging in to npm, use the ```npm login``` command, replacing USERNAME with your GitHub username, TOKEN with your personal access token, and PUBLIC-EMAIL-ADDRESS with your email address.
+## 🧱 2. Contexto y Repositorio
 
-If GitHub Packages is not your default package registry for using npm and you want to use the ```npm audit``` command, we recommend you use the ```--scope``` flag with the owner of the package when you authenticate to GitHub Packages.
+- **Nombre del repositorio:** `AUY1102-001V-2025-G5`
+- **URL:** `https://github.com/bapp86/AUY1102-001V-2025-G5`
+- Creado a partir del proyecto base proporcionado por la institución.
+- Metadatos alineados en `package.json`:
+  - `"name": "auy1102-001v-2025-g5"`
+  - `"repository.url": "https://github.com/bapp86/AUY1102-001V-2025-G5.git"`
+  - `"author": "bapp86 - AUY1102-001V-2025-G5"`
 
-```
-  $ npm login --scope=@OWNER --registry=https://npm.pkg.github.com
-  > Username: USERNAME
-  > Password: TOKEN
-  > Email: PUBLIC-EMAIL-ADDRESS
-```
+---
 
-### Pushing packages
+## 🛠️ 3. Stack Tecnológico
 
-#### Publishing a package using a local .npmrc file
+**Lenguaje & Runtime**
 
-You can use an .npmrc file to configure the scope mapping for your project. In the .npmrc file, use the GitHub Packages URL and account owner so GitHub Packages knows where to route package requests. Using an .npmrc file prevents other developers from accidentally publishing the package to npmjs.org instead of GitHub Packages.
+- Node.js (mínimo recomendado: `>= 20.x`)
+- TypeScript & JavaScript
 
-1. Authenticate to GitHub Packages. For more information, see "[Authenticating to GitHub Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages)."
-2. In the same directory as your ```package.json``` file, create or edit an ```.npmrc``` file to include a line specifying GitHub Packages URL and the account owner. Replace ```OWNER``` with the name of the user or organization account that owns the repository containing your project.
+**Herramientas Clave**
 
-    ```
-    @OWNER:registry=https://npm.pkg.github.com
-    ```
+- Jest · NYC (coverage)
+- ESLint · Prettier
+- Husky · Commitlint · Lint-staged
+- Semantic Release (configurado)
+- GitHub Actions (workflows de CI/CD)
+- Integraciones listas para:
+  - CodeQL
+  - Escaneo de dependencias (SCA)
+  - Publicación en NPM Registry / GitHub Packages
 
-3. Add the .npmrc file to the repository where GitHub Packages can find your project. For more information, see "[Adding a file to a repository](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository)."
+---
 
-    **NOTE**: Include on [```.gitignore```](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files) the exclusion of .npmrc to not compromise security.
-
-4. Verify the name of your package in your project's package.json. The name field must contain the scope and the ```name``` of the package. For example, if your package is called "test", and you are publishing to the "My-org" GitHub organization, the ```name``` field in your package.json should be ```@my-org/test```.
-
-5. Verify the repository field in your project's package.json. The ```repository``` field must match the URL for your GitHub ```repository```. For example, if your repository URL is ```github.com/my-org/test``` then the repository field should be ```https://github.com/my-org/test.git```.
-
-6. Publish the package:
-
-    ```
-    $ npm publish
-    ```
-
-#### Publishing a package using publishConfig in the package.json file
-
-You can use ```publishConfig``` element in the package.json file to specify the registry where you want the package published. For more information, see "[publishConfig](https://docs.npmjs.com/files/package.json#publishconfig)" in the npm documentation.
-
-1. Edit the package.json file for your package and include a ```publishConfig``` entry.
+## 📂 4. Estructura Principal del Repositorio
 
 ```
-"publishConfig": {
-  "registry":"https://npm.pkg.github.com"
-},
+AUY1102-001V-2025-G5/
+├─ .github/
+│  ├─ workflows/        # Pipelines de CI/CD (tests, auditorías, etc.)
+│  └─ ...               # Configuración adicional del proyecto
+├─ .husky/              # Hooks de Git (ej. lint en pre-commit)
+├─ docs/                # Documentación y material de apoyo
+├─ img/                 # Recursos gráficos (diagramas / evidencias)
+├─ src/                 # Código fuente principal del paquete/librería
+├─ test/                # Pruebas unitarias y archivos asociados
+├─ Dockerfile           # Soporte para contenedores (build / CI)
+├─ jest.config.js       # Configuración de Jest
+├─ tsconfig*.json       # Configuración de TypeScript
+├─ .eslintrc.json       # Configuración de ESLint
+├─ .prettierrc.json     # Configuración de Prettier
+├─ .releaserc           # Configuración de semantic-release
+└─ package.json
+```
+---
+
+## 🚀 5. Puesta en Marcha
+
+### 5.1. Requisitos
+```bash
+Node.js >= 20.x
+npm
+Git
+```
+### 5.2. Instalación
+```bash
+git clone https://github.com/bapp86/AUY1102-001V-2025-G5.git
+cd AUY1102-001V-2025-G5
+```
+#### Instalación estándar
+```
+npm install
+```
+#### Instalación limpia para CI
+```
+npm ci
+```
+## ✅ 6. Scripts Disponibles
+
+Los scripts definidos en package.json permiten un flujo homogéneo entre desarrollo local y CI.
+
+### 🔧 6.1. Build & Tipos
+```
+npm run build       # Compila el proyecto a la salida configurada
+npm run types       # Genera definiciones .d.ts si aplica
+```
+### 🧹 6.2. Calidad de Código
+```
+npm run lint        # Ejecuta ESLint sobre el código fuente
+npm run format      # Aplica formato con Prettier
+npm run sort        # Ordena y normaliza el package.json
+```
+### 🧪 6.3. Pruebas
+```
+npm run test:unit      # Ejecuta las pruebas unitarias con Jest
+npm run test:coverage  # Ejecuta pruebas y genera reporte de cobertura con NYC
+npm run test:dev       # Ejecuta pruebas en modo desarrollo
+npm run test:watch     # Mantiene Jest en modo watch para desarrollo continuo
+```
+Estos comandos son la base del pipeline y se integran con los workflows de GitHub Actions.
+
+## 🧪 7. Estrategia de Pruebas
+
+- Implementación de pruebas unitarias con **Jest**, orientadas a validar el comportamiento de componentes clave.
+
+- Uso de **NYC** para calcular cobertura:
+
+  - Foco en archivos dentro de *src/*.
+
+  - Reportes claros para revisión técnica y académica.
+
+- Refuerzo de cobertura mediante casos adicionales sobre la lógica del dominio (Value Objects y funciones específicas).
+
+- Enfoque alineado con buenas prácticas:
+
+  - Detectar regresiones.
+
+  - Asegurar comportamiento estable antes de integrar cambios.
+
+## 🧹 8. Linting, Formato y Hooks
+
+El proyecto adopta un enfoque de **calidad preventiva**:
+
+- **ESLint**: aplica reglas para mantener estándares consistentes, evitar malas prácticas y mejorar la legibilidad.
+
+- **Prettier**: unifica el estilo de formato para todo el equipo.
+
+- **Husky + Lint-staged** (si está configurado en el repo):
+
+  - Ejecutan validaciones sobre los archivos modificados antes del commit.
+
+  - Evitan que se suba código sin cumplir con las normas del proyecto.
+
+- **Commitlint / Convenciones de commits**:
+
+Facilitan la integración con herramientas como *semantic-release* y la generación de changelogs.
+
+Este conjunto reduce la deuda técnica y fortalece el trabajo colaborativo.
+
+## 🔁 9. Integración Continua (CI/CD)
+
+Los workflows definidos en ``` .github/workflows/ ``` permiten automatizar la validación del proyecto en cada cambio relevante:
+
+- **Build & Test (CI principal)**:
+
+  - Instalación con ```npm ci```.
+
+  - Ejecución de ```npm run lint```.
+
+  - Ejecución de ```npm run test:coverage```.
+
+  - Bloquea la integración de cambios que rompan el build o las pruebas.
+
+- **Seguridad & Auditoría** (según configuración):
+
+  -Preparado para integrarse con:
+
+    - **CodeQL** (análisis estático de seguridad).
+
+    - Escaneo de dependencias vulnerables (SCA).
+
+    - Herramientas externas de análisis de calidad.
+
+- **Release / Publicación**:
+
+  - Configuración preparada para trabajar con:
+
+    - Versionado semántico.
+
+    - Publicación en GitHub Packages / NPM Registry (cuando se habilite).
+
+Cada Push y Pull Request puede ser sometido a estas validaciones, entregando un pipeline trazable y alineado con prácticas profesionales.
+
+## 🌿 10. Flujo de Trabajo con Git
+
+Se recomienda el siguiente flujo, alineado con buenas prácticas:
+
+**1.** Crear una rama desde ```master```:
+
+  - ```feat/nueva-funcionalidad```
+
+  - ```fix/correccion-bug```
+
+**2.** Desarrollar cambios con **commits atómicos y descriptivos**.
+
+**3.** Ejecutar localmente antes del push:
+```
+npm run lint
+npm run test:coverage
 ```
 
-2. Verify the ```repository``` field in your project's package.json. The ```repository``` field must match the URL for your GitHub repository. For example, if your repository URL is ```github.com/my-org/test``` then the repository field should be ```https://github.com/my-org/test.git```
+**4.** Crear un **Pull Request** hacia ```master```:
 
-3. Publish the package:
+  - Describir claramente el objetivo de los cambios.
 
-      ```
-      $ npm publish
-      ```
-To discover every way to working with [NPM Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) please generete and **ISSUE**.
+  - Indicar impacto en módulos o componentes.
 
-<br>
+**5.** Permitir que los ```workflows de CI``` validen:
 
-## Using Github Container Registry - Github Action
-<br>
+  - Solo integrar cambios con todos los checks en verde.
 
-```
-name: Create and publish NPM Package
-on:
-  release:
-    types: [published]
+Este flujo asegura control, trazabilidad y calidad continua del código.
 
-jobs:
-  Publish-NPM-Package:
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache-dependency-path: package-lock.json
-          registry-url: https://npm.pkg.github.com
-      - run: npm install
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.PAT_GITHUB_TOKEN}}
-```
-```
-name: NPM Audit
-on:
-  pull_request: 
-    branches: [develop, staging, master]
-    types: [opened, synchronize]
+## 📚 11. Evidencias del Trabajo
 
-jobs:
-  npm-audit:
-    name: npm audit
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: install dependencies
-        run: npm ci
-      - uses: oke-py/npm-audit-action@v2
-        with:
-          audit_level: moderate
-          github_token: ${{ secrets.PAT_GITHUB_TOKEN }}
-          issue_assignees: oke-py
-          issue_labels: vulnerability,test
-          dedupe_issues: true
+El desarrollo de este repositorio está documentado en el **informe formal de la Evaluación Parcial N°2**, donde se detallan:
+
+- Configuración del entorno y del repositorio.
+
+- Ejecución de comandos y scripts clave.
+
+- Configuración y resultado de los pipelines.
+
+- Validación de pruebas y calidad.
+
+- Alineación con los indicadores del **RA3**.
+
+Este README funciona como versión técnica resumida y profesional de dichas evidencias para docentes, revisores y colaboradores.
+
+## 👥 12. Autores
+
+**Grupo G5 – AUY1102-001V-2025**
+
+- Juan Ignacio Crovetto Navarro
+
+- Bryan Painemilla
+
+Proyecto desarrollado para **DUOC UC – Ciclo de Vida del Software I (AUY1102-001V-2025), Sección 001V.**
+
+## 🤝 13. Cómo Contribuir
+
+**1.** Crear una rama desde ```master``` siguiendo la convención: ```feat/*```, ```fix/*```, ```chore/*```.
+
+**2.** Implementar los cambios respetando las reglas de estilo y estructura.
+
+**3.** Ejecutar antes de confirmar:
+```bash
+npm run lint
+npm run test:coverage
 ```
 
-To enable more capabilities and demostrate the strongest of Github and Github Actions we complement this example with [Github Reusable Workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows) using Open Source Tools and Enterprise Tools on Actions.
+**4.** Crear un Pull Request con:
 
-Reusing workflows avoids duplication. This makes workflows easier to maintain and allows you to create new workflows more quickly by building on the work of others, just as you do with actions. Workflow reuse also promotes best practice by helping you to use workflows that are well designed, have already been tested, and have been proved to be effective. Your organization can build up a library of reusable workflows that can be centrally maintained.
+- Descripción clara.
 
-**Note:** To enable your actions, in some cases you must configurate [encrypted secrets](https://docs.github.com/en/enterprise-cloud@latest/actions/security-guides/encrypted-secrets)
+- Motivo del cambio.
 
-<br>
+- Evidencias si corresponde.
 
-```
-name: Github Reusable Workflow
-on:
-  pull_request: 
-    branches: [develop, staging, master]
-    types: [opened, synchronize]
-  release:
-    types: [published]
+**5.** Esperar la validación automática de la CI y revisión del equipo.
 
-jobs:
-  NPM-Audit:
-    if: github.event_name != 'opened'
-    uses: ./.github/workflows/npm-audit.yml
-    secrets:
-      PAT_GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
-  
-  NPM-Publish:
-    if: ${{ (github.event.release.action == 'released') && always() }}
-    uses: ./.github/workflows/npm-registry.yml
-    needs: [NPM-Audit]
-    secrets:
-      PAT_GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
-```
-<br>
-
-## License
-
-The scripts and documentation in this project are released under the [MIT License](./LICENSE)
-## Contributions
-
-Contributions are welcome! read our [Contributor's Guide](./docs/CONTRIBUTING.md)
-
-## Code of Conduct
-
-👋 Be nice. See our [code of conduct](./docs/code_of_conduct.md)
-
-## References
-
-+ **NPM Publish:** https://github.com/actions/setup-node
-+ **NPM Audit Signatures:** https://github.blog/changelog/2022-07-26-a-new-npm-audit-signatures-command-to-verify-npm-package-integrity/
-+ **NPM Audit:** https://github.com/marketplace/actions/npm-audit-action
+Cualquier contribución debe mantener el enfoque en **calidad, seguridad, mantenibilidad y coherencia con los objetivos académicos del proyecto.**
