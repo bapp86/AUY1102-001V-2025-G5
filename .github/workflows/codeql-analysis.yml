@@ -1,9 +1,10 @@
-name: CodeQL
+name: CodeQL Analysis
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ main, master, develop, feat/tests-tdd-bdd ] # <-- CORRECCIÓN: Agregada tu rama
   pull_request:
     branches: [ main, master, develop ]
+
 jobs:
   analyze:
     name: Analyze
