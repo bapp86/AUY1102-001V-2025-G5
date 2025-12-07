@@ -4,7 +4,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+
+# Usamos npx tsc directamente para evitar errores con scripts de borrado (rimraf)
+RUN npx tsc 
 
 # Etapa 2: Pruebas (Tester) - Ejecuta pruebas dentro del contenedor
 FROM builder AS tester
