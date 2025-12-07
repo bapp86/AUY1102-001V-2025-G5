@@ -201,6 +201,8 @@ El proyecto está contenerizado y optimizado para producción. Para correrlo loc
    ```bash
    docker run -p 3000:3000 mi-app-backend
 
+Resultado esperado: La terminal se quedará "quieta" (escuchando) y si vas a http://localhost:3000 verás el mensaje: "¡Hola! El servidor Docker está funcionando correctamente
+
 ## 🧹 10. Linting, Formato y Hooks
 
 El proyecto adopta un enfoque de **calidad preventiva**:
