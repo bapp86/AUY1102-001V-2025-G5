@@ -8,6 +8,7 @@
 ![Build Status](https://github.com/bapp86/AUY1102-001V-2025-G5/actions/workflows/pipeline_evaluacion.yml/badge.svg)
 ![Security Scan](https://github.com/bapp86/AUY1102-001V-2025-G5/actions/workflows/codeql-analysis.yml/badge.svg)
 
+
 Este proyecto cuenta con integración continua (CI) para asegurar la calidad y seguridad del código.
 
 Repositorio del **Grupo G5** para la **Evaluación Parcial N°2** de  
