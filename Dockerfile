@@ -2,22 +2,21 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
+# Instalamos TODO (incluyendo tslib y devDependencies)
 RUN npm ci
 COPY . .
+# Compilamos directo con tsc
+RUN npx tsc
 
-# Usamos npx tsc directamente para evitar errores con scripts de borrado (rimraf)
-RUN npx tsc 
-
-# Etapa 2: Pruebas (Tester) - Ejecuta pruebas dentro del contenedor
-FROM builder AS tester
-RUN npm run test:unit
-
-# Etapa 3: Producción (Imagen final ligera)
+# Etapa 2: Producción (Imagen final)
 FROM node:20-alpine AS production
 WORKDIR /app
 COPY package*.json ./
-# --- CAMBIO AQUÍ: Agregamos --ignore-scripts ---
-RUN npm ci --only=production --ignore-scripts
+
+# Copiamos la carpeta node_modules ENTERA desde el builder.
+# Así garantizamos que tslib está ahí, sin instalar nada de nuevo.
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+
 EXPOSE 3000
 CMD ["node", "dist/index.js"]

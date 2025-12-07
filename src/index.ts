@@ -1,10 +1,12 @@
-// src/index.ts
-// Este archivo solo debe exportar los módulos de tu librería
+import express, { Request, Response } from 'express';
 
-export * from './value-object/primitives/date-value-object';
-export * from './value-object/primitives/enum-value-object';
-export * from './value-object/primitives/number-value-object';
-export * from './value-object/primitives/string-value-object';
+const app = express();
+const port = 3000;
 
-// Y cualquier otra cosa que deba ser pública, como 'sum'
-export * from './lib/sum';
+app.get('/', (req: Request, res: Response) => {
+  res.send('¡Hola! El servidor Docker está funcionando correctamente 🚀');
+});
+
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server listening on port ${port}`);
+});
