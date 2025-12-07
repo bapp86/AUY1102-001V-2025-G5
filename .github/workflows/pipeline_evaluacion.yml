@@ -1,0 +1,97 @@
+name: Pipeline Evaluacion 3
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # Job 1: Construcción, Pruebas en Docker y Publicación
+  build-test-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      security-events: write 
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Login en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Requerimiento: Ejecución de pruebas unitarias dentro del contenedor 
+      - name: Ejecutar Tests dentro de Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          target: tester
+          push: false
+
+      # Requerimiento: Publicación de la imagen si las pruebas son exitosas 
+      - name: Build y Push Imagen Producción
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          target: production
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/auy1102-g5:latest,${{ secrets.DOCKER_USERNAME }}/auy1102-g5:${{ github.sha }}
+
+      # Requerimiento: Integrar Docker Scout 
+      - name: Análisis Docker Scout
+        uses: docker/scout-action@v1
+        with:
+          command: cves
+          image: ${{ secrets.DOCKER_USERNAME }}/auy1102-g5:latest
+          only-severities: critical,high
+          # exit-code: true # Descomenta para bloquear si hay vulnerabilidades críticas
+
+  # Job 2: Seguridad y Calidad de Código
+  security-analysis:
+    runs-on: ubuntu-latest
+    needs: build-test-push
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      # Requerimiento: Integrar SonarCloud 
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=bapp86
+            -Dsonar.projectKey=bapp86_AUY1102-001V-2025-G5
+
+      # Requerimiento: Integrar Snyk 
+      - name: Snyk Security Scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+      # Requerimiento: GitHub Advanced Security 
+      - name: Dependency Review
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@v4
