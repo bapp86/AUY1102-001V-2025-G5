@@ -5,6 +5,10 @@
 ![Tests](https://img.shields.io/badge/Testing-Jest%20|%20NYC-success)
 ![Lint](https://img.shields.io/badge/Code%20Style-ESLint%20|%20Prettier-blue)
 ![Security](https://img.shields.io/badge/Security-Enabled-critical)
+![Build Status](https://github.com/bapp86/AUY1102-001V-2025-G5/actions/workflows/pipeline_evaluacion.yml/badge.svg)
+![Security Scan](https://github.com/bapp86/AUY1102-001V-2025-G5/actions/workflows/codeql-analysis.yml/badge.svg)
+
+Este proyecto cuenta con integración continua (CI) para asegurar la calidad y seguridad del código.
 
 Repositorio del **Grupo G5** para la **Evaluación Parcial N°2** de  
 **Ciclo de Vida del Software I – AUY1102-001V-2025 (Sección 001V, DUOC UC)**
@@ -185,7 +189,19 @@ Para desarrollar en local:
 
   - Asegurar comportamiento estable antes de integrar cambios.
 
-## 🧹 9. Linting, Formato y Hooks
+## 🐳 9. Ejecución con Docker
+
+El proyecto está contenerizado y optimizado para producción. Para correrlo localmente:
+
+1. **Construir la imagen:**
+   ```bash
+   docker build -t mi-app-backend .
+   
+2. **Ejecutar el contenedor:**
+   ```bash
+   docker run -p 3000:3000 mi-app-backend
+
+## 🧹 10. Linting, Formato y Hooks
 
 El proyecto adopta un enfoque de **calidad preventiva**:
 
@@ -205,7 +221,7 @@ Facilitan la integración con herramientas como *semantic-release* y la generaci
 
 Este conjunto reduce la deuda técnica y fortalece el trabajo colaborativo.
 
-## 🔁 10. Integración Continua (CI/CD)
+## 🔁 11. Integración Continua (CI/CD)
 
 Los workflows definidos en ``` .github/workflows/ ``` permiten automatizar la validación del proyecto en cada cambio relevante:
 
@@ -239,7 +255,7 @@ Los workflows definidos en ``` .github/workflows/ ``` permiten automatizar la va
 
 Cada Push y Pull Request puede ser sometido a estas validaciones, entregando un pipeline trazable y alineado con prácticas profesionales.
 
-## 🌿 11. Flujo de Trabajo con Git
+## 🌿 12. Flujo de Trabajo con Git
 
 Se recomienda el siguiente flujo, alineado con buenas prácticas:
 
@@ -269,7 +285,7 @@ npm run test:coverage
 
 Este flujo asegura control, trazabilidad y calidad continua del código.
 
-## 📚 12. Evidencias del Trabajo
+## 📚 13. Evidencias del Trabajo
 
 El desarrollo de este repositorio está documentado en el **informe formal de la Evaluación Parcial N°2**, donde se detallan:
 
@@ -285,7 +301,7 @@ El desarrollo de este repositorio está documentado en el **informe formal de la
 
 Este README funciona como versión técnica resumida y profesional de dichas evidencias para docentes, revisores y colaboradores.
 
-## 👥 13. Autores
+## 👥 14. Autores
 
 **Grupo G5 – AUY1102-001V-2025**
 
@@ -295,7 +311,7 @@ Este README funciona como versión técnica resumida y profesional de dichas evi
 
 Proyecto desarrollado para **DUOC UC – Ciclo de Vida del Software I (AUY1102-001V-2025), Sección 001V.**
 
-## 🤝 14. Cómo Contribuir
+## 🤝 15. Cómo Contribuir
 
 **1.** Crear una rama desde ```master``` siguiendo la convención: ```feat/*```, ```fix/*```, ```chore/*```.
 
